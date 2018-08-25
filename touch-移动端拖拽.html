@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+ <style>
+  #box{
+    background: red;
+    width:100px;height:100px;
+    position: absolute;
+    left:0;top:0;
+  }
+  </style>
+</head>
+<body>
+  <div id="box">box</div>
+</body>
+<script>
+	// var obox=document.getElementById("box")
+	// var clientW = document.documentElement.clientWidth
+	// var clientH = document.documentElement.clientHeight
+	// obox.onmousedown=function(e){
+	// 	 var disX=e.clientX-this.offsetLeft
+	// 	  var disY=e.clientY-this.offsetTop
+	// 	document.onmousemove=function(e){
+	// 		var l=e.clientX-disX
+	// 		var t=e.clientY-disY
+ //           if(l<0)l=0
+ //           if(t<0)t=0
+ //        if(l>clientW - obox.offsetWidth) {l=clientW - obox.offsetWidth}
+	// 	   if(t>clientH - obox.offsetHeight){ t=clientH - obox.offsetHeight}
+ //          obox.style.left=l+"px"
+ //           obox.style.top=t+"px"
+	// 	}
+	// 	document.onmouseup=function(){
+ //          document.onmousemove=document.onmouseup=null;
+	// 	}
+	// 	return false;
+	// }
+	document.addEventListener("DOMContentLoaded",function(){
+		var obox=document.querySelector('#box');
+		var clientW = document.documentElement.clientWidth
+	    var clientH = document.documentElement.clientHeight
+		obox.addEventListener("touchstart",function(e){
+			 var disX=e.targetTouches[0].clientX-this.offsetLeft
+	          var disY=e.targetTouches[0].clientY-this.offsetTop
+	     document.addEventListener("touchmove",fnMove,false)
+	     function fnMove(e){
+	     	var l=e.targetTouches[0].clientX-disX
+	 		var t=e.targetTouches[0].clientY-disY
+	 		if(l<0)l=0
+            if(t<0)t=0
+            if(l>clientW - obox.offsetWidth) {l=clientW - obox.offsetWidth}
+	 	   if(t>clientH - obox.offsetHeight){ t=clientH - obox.offsetHeight}
+	     	obox.style.left=l+"px"
+            obox.style.top=t+"px"
+	     }
+	     document.addEventListener('touchend',fnEnd,false);
+	     	 function fnEnd(){
+          document.removeEventListener('touchmove',fnMove);
+          document.removeEventListener('touchend',fnEnd);
+        }
+        e.preventDefault();
+	     },false);
+		},false);
+	
+</script>
+</html>
